@@ -1,0 +1,28 @@
+=== TypeGreek ===
+
+Contributors: Randy Hoyt  (@randyhoyt / randyhoyt.com)
+
+
+
+== Description ==
+
+This is a JavaScript library for converting strings of text from beta code to Unicode Greek.
+The code was originally developed for typegreek.com, where it has been running since 2005.
+
+Learn More: typegreek.com
+
+
+
+== License ==
+
+License: GNU General Public License
+
+
+
+== Release History ==
+
+-- 0.1 -- 2011-10-02
+
+In this initial release, the code is very specific to the typegreek.com site. I will be making
+some bug fixes and feature enhancements, plus converting the code into a true library that can
+easily be included in other open-source, GPL software.

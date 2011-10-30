@@ -1,8 +1,8 @@
 ﻿/* ********************************************************************************************
-   * convertStr (object, event)
+   * typegreek_convertStr (object, event)
    * ******************************************************************************************** */
 
-function convertStr(control, event) {
+function typegreek_convertStr(control, event) {
 	
 	var startString = "";
 	var workingString = "";
@@ -46,9 +46,9 @@ function convertStr(control, event) {
 
         greek = new Array(); greek[0] = startString; greek[1] = workingString; greek[2] = finishString; greek[3] = finishCursorStart; greek[4] = finishCursorEnd; greek[5] = currentCursor;
         // --------------- break apart the greek characters in the starting value
-        greek = breakApartGreekCharacters(greek,control); 
+        greek = typegreek_breakApartGreekCharacters(greek,control); 
         // --------------- combine the greek characters in the starting value
-        greek = combineGreekCharacters(greek,control);
+        greek = typegreek_combineGreekCharacters(greek,control);
         startString = greek[0]; workingString = greek[1]; finishString = greek[2]; finishCursorStart = greek[3]; finishCursorEnd = greek[4]; currentCursor = greek[5];
         
         // --------------- insert finishing value 
@@ -89,7 +89,7 @@ return;
    * convertCharToggle (object, boolean, event)
    * ******************************************************************************************** */
    
-function convertCharToggle(control, toggle, event) {
+function typegreek_convertCharToggle(control, toggle, event) {
 
     if (toggle == true) {
         var key;
@@ -105,71 +105,71 @@ function convertCharToggle(control, toggle, event) {
         if ( event.ctrlKey || event.metaKey ) {
         	return;
         } else {
-            if ( key == 38 ) { insertAtCursor(control, '`'); typeLetter = false; } // & -> \
-            if ( key == 33 ) { insertAtCursor(control, 'ͺ'); typeLetter = false; } // ! -> |
-            if ( key == 40 ) { insertAtCursor(control, '῾'); typeLetter = false; }
-            if ( key == 41 ) { insertAtCursor(control, '᾿'); typeLetter = false; }
-            if ( key == 43 ) { insertAtCursor(control, '¨'); typeLetter = false; }
-            if ( key == 47 ) { insertAtCursor(control, '´'); typeLetter = false; }
-            if ( key == 58 ) { insertAtCursor(control, '·'); typeLetter = false; }            
-            if ( key == 59 ) { insertAtCursor(control, '·'); typeLetter = false; }            
-            if ( key == 61 ) { insertAtCursor(control, '῀'); typeLetter = false; }    
-            if ( key == 63 ) { insertAtCursor(control, ';'); typeLetter = false; }
-            if ( key == 64 ) { insertAtCursor(control, '̣'); typeLetter = false; }                    
-            if ( key == 65 ) { insertAtCursor(control, 'Α'); typeLetter = false; }
-            if ( key == 66 ) { insertAtCursor(control, 'Β'); typeLetter = false; }    
-            if ( key == 67 ) { insertAtCursor(control, 'Ξ'); typeLetter = false; }        
-            if ( key == 68 ) { insertAtCursor(control, 'Δ'); typeLetter = false; }            
-            if ( key == 69 ) { insertAtCursor(control, 'Ε'); typeLetter = false; }
-            if ( key == 70 ) { insertAtCursor(control, 'Φ'); typeLetter = false; }            
-            if ( key == 71 ) { insertAtCursor(control, 'Γ'); typeLetter = false; }                
-            if ( key == 72 ) { insertAtCursor(control, 'Η'); typeLetter = false; }                    
-            if ( key == 73 ) { insertAtCursor(control, 'Ι'); typeLetter = false; }        
-            if ( key == 74 ) { insertAtCursor(control, 'Σ'); typeLetter = false; }            
-            if ( key == 75 ) { insertAtCursor(control, 'Κ'); typeLetter = false; }                
-            if ( key == 76 ) { insertAtCursor(control, 'Λ'); typeLetter = false; }                    
-            if ( key == 77 ) { insertAtCursor(control, 'Μ'); typeLetter = false; }                        
-            if ( key == 78 ) { insertAtCursor(control, 'Ν'); typeLetter = false; }                            
-            if ( key == 79 ) { insertAtCursor(control, 'Ο'); typeLetter = false; }    
-            if ( key == 80 ) { insertAtCursor(control, 'Π'); typeLetter = false; }        
-            if ( key == 81 ) { insertAtCursor(control, 'Θ'); typeLetter = false; }            
-            if ( key == 82 ) { insertAtCursor(control, 'Ρ'); typeLetter = false; }    
-            if ( key == 83 ) { insertAtCursor(control, 'Σ'); typeLetter = false; }        
-            if ( key == 84 ) { insertAtCursor(control, 'Τ'); typeLetter = false; }            
-            if ( key == 85 ) { insertAtCursor(control, 'Υ'); typeLetter = false; }
-            if ( key == 86 ) { insertAtCursor(control, 'Ϝ'); typeLetter = false; }    
-            if ( key == 87 ) { insertAtCursor(control, 'Ω'); typeLetter = false; }        
-            if ( key == 88 ) { insertAtCursor(control, 'Χ'); typeLetter = false; }            
-            if ( key == 89 ) { insertAtCursor(control, 'Ψ'); typeLetter = false; }    
-            if ( key == 90 ) { insertAtCursor(control, 'Ζ'); typeLetter = false; }        
-            if ( key == 92 ) { insertAtCursor(control, '`'); typeLetter = false; }
-            if ( key == 97 ) { insertAtCursor(control, 'α'); typeLetter = false; }
-            if ( key == 98 ) { insertAtCursor(control, 'β'); typeLetter = false; }    
-            if ( key == 99 ) { insertAtCursor(control, 'ξ'); typeLetter = false; }
-            if ( key == 100 ) { insertAtCursor(control, 'δ'); typeLetter = false; }            
-            if ( key == 101 ) { insertAtCursor(control, 'ε'); typeLetter = false; }        
-            if ( key == 102 ) { insertAtCursor(control, 'φ'); typeLetter = false; }            
-            if ( key == 103 ) { insertAtCursor(control, 'γ'); typeLetter = false; }                
-            if ( key == 104 ) { insertAtCursor(control, 'η'); typeLetter = false; }                    
-            if ( key == 105 ) { insertAtCursor(control, 'ι'); typeLetter = false; }            
-            if ( key == 106 ) { insertAtCursor(control, 'ς'); typeLetter = false; }
-            if ( key == 107 ) { insertAtCursor(control, 'κ'); typeLetter = false; }    
-            if ( key == 108 ) { insertAtCursor(control, 'λ'); typeLetter = false; }        
-            if ( key == 109 ) { insertAtCursor(control, 'μ'); typeLetter = false; }            
-            if ( key == 110 ) { insertAtCursor(control, 'ν'); typeLetter = false; }                
-            if ( key == 111 ) { insertAtCursor(control, 'ο'); typeLetter = false; }            
-            if ( key == 112 ) { insertAtCursor(control, 'π'); typeLetter = false; }                
-            if ( key == 113 ) { insertAtCursor(control, 'θ'); typeLetter = false; }                        
-            if ( key == 114 ) { insertAtCursor(control, 'ρ'); typeLetter = false; }                    
-            if ( key == 115 ) { insertAtCursor(control, 'σ'); typeLetter = false; }    
-            if ( key == 116 ) { insertAtCursor(control, 'τ'); typeLetter = false; }        
-            if ( key == 117 ) { insertAtCursor(control, 'υ'); typeLetter = false;}
-            if ( key == 118 ) { insertAtCursor(control, 'ϝ'); typeLetter = false;}    
-            if ( key == 119 ) { insertAtCursor(control, 'ω'); typeLetter = false;}        
-            if ( key == 120 ) { insertAtCursor(control, 'χ'); typeLetter = false; }
-            if ( key == 121 ) { insertAtCursor(control, 'ψ'); typeLetter = false; }    
-            if ( key == 122 ) { insertAtCursor(control, 'ζ'); typeLetter = false; }        
-            if ( key == 124 ) { insertAtCursor(control, 'ͺ'); typeLetter = false; }
+            if ( key == 38 ) { typegreek_insertAtCursor(control, '`'); typeLetter = false; } // & -> \
+            if ( key == 33 ) { typegreek_insertAtCursor(control, 'ͺ'); typeLetter = false; } // ! -> |
+            if ( key == 40 ) { typegreek_insertAtCursor(control, '῾'); typeLetter = false; }
+            if ( key == 41 ) { typegreek_insertAtCursor(control, '᾿'); typeLetter = false; }
+            if ( key == 43 ) { typegreek_insertAtCursor(control, '¨'); typeLetter = false; }
+            if ( key == 47 ) { typegreek_insertAtCursor(control, '´'); typeLetter = false; }
+            if ( key == 58 ) { typegreek_insertAtCursor(control, '·'); typeLetter = false; }            
+            if ( key == 59 ) { typegreek_insertAtCursor(control, '·'); typeLetter = false; }            
+            if ( key == 61 ) { typegreek_insertAtCursor(control, '῀'); typeLetter = false; }    
+            if ( key == 63 ) { typegreek_insertAtCursor(control, ';'); typeLetter = false; }
+            if ( key == 64 ) { typegreek_insertAtCursor(control, '̣'); typeLetter = false; }                    
+            if ( key == 65 ) { typegreek_insertAtCursor(control, 'Α'); typeLetter = false; }
+            if ( key == 66 ) { typegreek_insertAtCursor(control, 'Β'); typeLetter = false; }    
+            if ( key == 67 ) { typegreek_insertAtCursor(control, 'Ξ'); typeLetter = false; }        
+            if ( key == 68 ) { typegreek_insertAtCursor(control, 'Δ'); typeLetter = false; }            
+            if ( key == 69 ) { typegreek_insertAtCursor(control, 'Ε'); typeLetter = false; }
+            if ( key == 70 ) { typegreek_insertAtCursor(control, 'Φ'); typeLetter = false; }            
+            if ( key == 71 ) { typegreek_insertAtCursor(control, 'Γ'); typeLetter = false; }                
+            if ( key == 72 ) { typegreek_insertAtCursor(control, 'Η'); typeLetter = false; }                    
+            if ( key == 73 ) { typegreek_insertAtCursor(control, 'Ι'); typeLetter = false; }        
+            if ( key == 74 ) { typegreek_insertAtCursor(control, 'Σ'); typeLetter = false; }            
+            if ( key == 75 ) { typegreek_insertAtCursor(control, 'Κ'); typeLetter = false; }                
+            if ( key == 76 ) { typegreek_insertAtCursor(control, 'Λ'); typeLetter = false; }                    
+            if ( key == 77 ) { typegreek_insertAtCursor(control, 'Μ'); typeLetter = false; }                        
+            if ( key == 78 ) { typegreek_insertAtCursor(control, 'Ν'); typeLetter = false; }                            
+            if ( key == 79 ) { typegreek_insertAtCursor(control, 'Ο'); typeLetter = false; }    
+            if ( key == 80 ) { typegreek_insertAtCursor(control, 'Π'); typeLetter = false; }        
+            if ( key == 81 ) { typegreek_insertAtCursor(control, 'Θ'); typeLetter = false; }            
+            if ( key == 82 ) { typegreek_insertAtCursor(control, 'Ρ'); typeLetter = false; }    
+            if ( key == 83 ) { typegreek_insertAtCursor(control, 'Σ'); typeLetter = false; }        
+            if ( key == 84 ) { typegreek_insertAtCursor(control, 'Τ'); typeLetter = false; }            
+            if ( key == 85 ) { typegreek_insertAtCursor(control, 'Υ'); typeLetter = false; }
+            if ( key == 86 ) { typegreek_insertAtCursor(control, 'Ϝ'); typeLetter = false; }    
+            if ( key == 87 ) { typegreek_insertAtCursor(control, 'Ω'); typeLetter = false; }        
+            if ( key == 88 ) { typegreek_insertAtCursor(control, 'Χ'); typeLetter = false; }            
+            if ( key == 89 ) { typegreek_insertAtCursor(control, 'Ψ'); typeLetter = false; }    
+            if ( key == 90 ) { typegreek_insertAtCursor(control, 'Ζ'); typeLetter = false; }        
+            if ( key == 92 ) { typegreek_insertAtCursor(control, '`'); typeLetter = false; }
+            if ( key == 97 ) { typegreek_insertAtCursor(control, 'α'); typeLetter = false; }
+            if ( key == 98 ) { typegreek_insertAtCursor(control, 'β'); typeLetter = false; }    
+            if ( key == 99 ) { typegreek_insertAtCursor(control, 'ξ'); typeLetter = false; }
+            if ( key == 100 ) { typegreek_insertAtCursor(control, 'δ'); typeLetter = false; }            
+            if ( key == 101 ) { typegreek_insertAtCursor(control, 'ε'); typeLetter = false; }        
+            if ( key == 102 ) { typegreek_insertAtCursor(control, 'φ'); typeLetter = false; }            
+            if ( key == 103 ) { typegreek_insertAtCursor(control, 'γ'); typeLetter = false; }                
+            if ( key == 104 ) { typegreek_insertAtCursor(control, 'η'); typeLetter = false; }                    
+            if ( key == 105 ) { typegreek_insertAtCursor(control, 'ι'); typeLetter = false; }            
+            if ( key == 106 ) { typegreek_insertAtCursor(control, 'ς'); typeLetter = false; }
+            if ( key == 107 ) { typegreek_insertAtCursor(control, 'κ'); typeLetter = false; }    
+            if ( key == 108 ) { typegreek_insertAtCursor(control, 'λ'); typeLetter = false; }        
+            if ( key == 109 ) { typegreek_insertAtCursor(control, 'μ'); typeLetter = false; }            
+            if ( key == 110 ) { typegreek_insertAtCursor(control, 'ν'); typeLetter = false; }                
+            if ( key == 111 ) { typegreek_insertAtCursor(control, 'ο'); typeLetter = false; }            
+            if ( key == 112 ) { typegreek_insertAtCursor(control, 'π'); typeLetter = false; }                
+            if ( key == 113 ) { typegreek_insertAtCursor(control, 'θ'); typeLetter = false; }                        
+            if ( key == 114 ) { typegreek_insertAtCursor(control, 'ρ'); typeLetter = false; }                    
+            if ( key == 115 ) { typegreek_insertAtCursor(control, 'σ'); typeLetter = false; }    
+            if ( key == 116 ) { typegreek_insertAtCursor(control, 'τ'); typeLetter = false; }        
+            if ( key == 117 ) { typegreek_insertAtCursor(control, 'υ'); typeLetter = false;}
+            if ( key == 118 ) { typegreek_insertAtCursor(control, 'ϝ'); typeLetter = false;}    
+            if ( key == 119 ) { typegreek_insertAtCursor(control, 'ω'); typeLetter = false;}        
+            if ( key == 120 ) { typegreek_insertAtCursor(control, 'χ'); typeLetter = false; }
+            if ( key == 121 ) { typegreek_insertAtCursor(control, 'ψ'); typeLetter = false; }    
+            if ( key == 122 ) { typegreek_insertAtCursor(control, 'ζ'); typeLetter = false; }        
+            if ( key == 124 ) { typegreek_insertAtCursor(control, 'ͺ'); typeLetter = false; }
             return typeLetter;
         }
     }
@@ -177,10 +177,10 @@ function convertCharToggle(control, toggle, event) {
 
 
 /* ********************************************************************************************
-   * insertAtCursor (object)
+   * typegreek_insertAtCursor (object)
    * ******************************************************************************************** */
    
-function insertAtCursor(myField, myValue) {
+function typegreek_insertAtCursor(myField, myValue) {
   //IE support
   if (document.selection) {
     myField.focus();
@@ -210,10 +210,10 @@ function insertAtCursor(myField, myValue) {
 
 
 /* ********************************************************************************************
-   * combineGreekCharacters (object)
+   * typegreek_combineGreekCharacters (object)
    * ******************************************************************************************** */
    
-function breakApartGreekCharacters(greek,control) {
+function typegreek_breakApartGreekCharacters(greek,control) {
 	
     var startString = greek[0]; var workingString = greek[1]; var finishString = greek[2]; var finishCursorStart = greek[3]; var finishCursorEnd = greek[4]; var currentCursor = greek[5];	
 
@@ -224,7 +224,7 @@ function breakApartGreekCharacters(greek,control) {
         workingString = "";
         
         greek[0] = startString; greek[1] = workingString; greek[2] = finishString; greek[3] = finishCursorStart; greek[4] = finishCursorEnd; greek[5] = currentCursor;        
-        greek = removeOne(greek);
+        greek = typegreek_removeOne(greek);
         startString = greek[0]; workingString = greek[1]; finishString = greek[2]; finishCursorStart = greek[3]; finishCursorEnd = greek[4]; currentCursor = greek[5];        
         
         if ( workingString == "ς" ) { workingString = "σ"; }
@@ -449,10 +449,10 @@ function breakApartGreekCharacters(greek,control) {
 
 
 /* ********************************************************************************************
-   * combineGreekCharacters (object)
+   * typegreek_combineGreekCharacters (object)
    * ******************************************************************************************** */
 
-function combineGreekCharacters(greek, control) {
+function typegreek_combineGreekCharacters(greek, control) {
 	
     var startString = greek[0]; var workingString = greek[1]; var finishString = greek[2]; var finishCursorStart = greek[3]; var finishCursorEnd = greek[4]; var currentCursor = greek[5];	
 
@@ -477,7 +477,7 @@ function combineGreekCharacters(greek, control) {
         workingString = "";
         
         greek[0] = startString; greek[1] = workingString; greek[2] = finishString; greek[3] = finishCursorStart; greek[4] = finishCursorEnd; greek[5] = currentCursor;                
-        greek = removeOne(greek);
+        greek = typegreek_removeOne(greek);
         startString = greek[0]; workingString = greek[1]; finishString = greek[2]; finishCursorStart = greek[3]; finishCursorEnd = greek[4]; currentCursor = greek[5];
         
         if (startString != "") {        
@@ -505,7 +505,7 @@ function combineGreekCharacters(greek, control) {
                                         keepGoing = false;
 	                                } else {
                                     // the current string does not contain a dieresis
-	                                    greek = removeOne(greek);
+	                                    greek = typegreek_removeOne(greek);
 	                                }
 	                            } else {
                                     if (IOTA.indexOf(workingString.charAt(0)) > -1) {
@@ -515,16 +515,16 @@ function combineGreekCharacters(greek, control) {
                          	            // the current string contains an iota and no breathing
                                             keepGoing = false;
 	                                    } else {
-	                                        greek = removeOne(greek);     
+	                                        greek = typegreek_removeOne(greek);     
 	                                    }
 	                                } else {
                                     // the current string starts with a letter that does not receive a dieresis or an iota		      
-                                        greek = removeOne(greek);	      
+                                        greek = typegreek_removeOne(greek);	      
 	                                }
 	                            }
                             } else {
                             // the current string does NOT start with a capital letter
-                                greek = removeOne(greek);
+                                greek = typegreek_removeOne(greek);
                             }
                         } else {
                             keepGoing = false;
@@ -549,12 +549,12 @@ function combineGreekCharacters(greek, control) {
                                              // the current string starts with a letter that does not receive a smooth breathing		               
 	               
                                                  if (  ( (workingString.indexOf('῾') > -1) || (startString.charAt(1) == '῾') )  ) {
-                                                     greek = removeOne(greek);
+                                                     greek = typegreek_removeOne(greek);
                                                  } else {
                                                      keepGoing = false;	                                  
 	                                             }
                                              } else {
-                                                 greek = removeOne(greek);		               
+                                                 greek = typegreek_removeOne(greek);		               
                                              }
                                          } else {
                                              keepGoing = false;		           
@@ -564,7 +564,7 @@ function combineGreekCharacters(greek, control) {
 
                                             if (      (((workingString.indexOf('᾿') > -1)  || (workingString.indexOf('῾') > -1) || (startString.charAt(1) == '᾿') || (startString.charAt(1) == '῾')))     || ((( (workingString.indexOf('᾿') == -1)  && (workingString.indexOf('῾') == -1) && (startString.charAt(1) == 'ͺ') && (workingString.indexOf('ͺ') == -1) && (  (startString.charAt(2) == '᾿') || (startString.charAt(2) == '῾') ))))    ) {
                                             // the current string contains a breathing mark (already or coming up next) 
-                                                greek = removeOne(greek);  	              
+                                                greek = typegreek_removeOne(greek);  	              
 	                                        } else {
 	                                            keepGoing = false;		              
 	                                        }
@@ -573,7 +573,7 @@ function combineGreekCharacters(greek, control) {
 	                                    }
 	                                }
 	                            } else {
-                                    greek = removeOne(greek);  
+                                    greek = typegreek_removeOne(greek);  
 	                            }
                             } else {
                                 keepGoing = false;	                            
@@ -588,12 +588,12 @@ function combineGreekCharacters(greek, control) {
                                 // the current string starts with a letter that receives a rough breathing (vowels and rho) and has no breathing mark and has no dieresis
                                     if ( startString.charAt(0) == "῾" ) {
                                     // the next character is (
-                                        greek = removeOne(greek);
+                                        greek = typegreek_removeOne(greek);
                                     } else {
                                     // the next character is )
                                         if (  (SMOOTH_BREATHING.indexOf(workingString.charAt(0)) > -1)   ) {
                                         // the current string starts with a letter that receives a smooth breathing (same except for capital upsilon and capital rho)
-                                            greek = removeOne(greek);                                        
+                                            greek = typegreek_removeOne(greek);                                        
                                         } else {
                                             keepGoing = false;
                                         }
@@ -618,14 +618,14 @@ function combineGreekCharacters(greek, control) {
 	              
                                                 if (  ( (workingString.indexOf('´') == -1)  && (workingString.indexOf('`') == -1) && (workingString.indexOf('῀') == -1) )   ||  ( (workingString.indexOf('᾿') > -1)  || (workingString.indexOf('῾') > -1) || startString.charAt(1) == '᾿' || startString.charAt(1) == '῾' )     ) {    
                                                 // the current string either has no accent mark or it has a breathing mark (already or coming up)
-                                                    greek = removeOne(greek);
+                                                    greek = typegreek_removeOne(greek);
                                                 } else {
                                                 // the current string contains an accent mark without a breathing mark (already or coming up next)
                                                     keepGoing = false;	                      
                                                 }
 	                                        } else {
                                                 // the current string starts with a non-capital letter
-                                                greek = removeOne(greek);
+                                                greek = typegreek_removeOne(greek);
                                             }   
                                         } else {
                                             keepGoing = false;  
@@ -641,12 +641,12 @@ function combineGreekCharacters(greek, control) {
 
                                                 if (  (workingString.indexOf('´') == -1)  && (workingString.indexOf('`') == -1) && (workingString.indexOf('῀') == -1)  ) {
                                                 // the current string does not have any of the three accents (/, \, or =)
-                                                    greek = removeOne(greek);
+                                                    greek = typegreek_removeOne(greek);
 	                                            } else {
 	                                                keepGoing = false;
 	                                            }
 	                                        } else {
-	                                            greek = removeOne(greek);
+	                                            greek = typegreek_removeOne(greek);
 	                                        }
 	                                    } else {
 	                                        keepGoing = false;
@@ -663,7 +663,7 @@ function combineGreekCharacters(greek, control) {
                     
                 } // keep checking the next characters               
        
-                if (workingString.length > 1) { greek = combineSingleCharacter(greek, control); }
+                if (workingString.length > 1) { greek = typegreek_combineSingleCharacter(greek, control); }
                 
                 startString = greek[0]; workingString = greek[1]; finishString = greek[2]; finishCursorStart = greek[3]; finishCursorEnd = greek[4]; currentCursor = greek[5];	                
 
@@ -687,7 +687,7 @@ function combineGreekCharacters(greek, control) {
 
 
 /* ********************************************************************************************
-   * combineSingleCharacter (object)
+   * typegreek_combineSingleCharacter (object)
    *
    * This method receives a group of Latin characters in
    * beta code that BetaToUnicode has determined constitute
@@ -695,7 +695,7 @@ function combineGreekCharacters(greek, control) {
    * Unicode character represented by that string of characters.
    * ******************************************************************************************** */
 
-function combineSingleCharacter(greek, control) {
+function typegreek_combineSingleCharacter(greek, control) {
 	
 	var startString = greek[0]; var workingString = greek[1]; var finishString = greek[2]; var finishCursorStart = greek[3]; var finishCursorEnd = greek[4]; var currentCursor = greek[5];
 	
@@ -1096,10 +1096,10 @@ function combineSingleCharacter(greek, control) {
 
 
 /* ********************************************************************************************
-   * removeOne ()
+   * typegreek_removeOne ()
    * ******************************************************************************************** */
 
-function removeOne(greek) {
+function typegreek_removeOne(greek) {
 	
 	var startString = greek[0]; var workingString = greek[1]; var finishString = greek[2]; var finishCursorStart = greek[3]; var finishCursorEnd = greek[4]; var currentCursor = greek[5];
 	

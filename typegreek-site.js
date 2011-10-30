@@ -44,7 +44,7 @@ function typegreek_init() {
 		typegreek_addEvent(els[i],'keypress',testKeyPress);
 		typegreek_addEvent(els[i],'keyup',testKeyUp);
 		// add toggler
-		alert(els[i].getAttribute('data-typegreek-toggle'));
+		//alert(els[i].getAttribute('data-typegreek-toggle'));
 	}
 	
 }

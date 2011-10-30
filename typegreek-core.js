@@ -1,48 +1,15 @@
-/* =============================================================
-
-   ============================================================= */
-
-
-
-
-
-
-
-
-
-
-/* ********************************************************************************************
-   * Global Variables
-   *
-   *
-   * 
-   * 
-   *
-   * ******************************************************************************************** */
-
-var startString = "";
-var workingString = "";
-var finishString = "";
-var finishCursorStart = 0;
-var finishCursorEnd = 0;
-var currentCursor = 0;
-
-
-
-
-
-
-/* ********************************************************************************************
-   * insertAtCursor (object)
-   *
-   *
-   * 
-   * 
-   * Much thanks to ???? (http://www.????) for getting me started on this function.
-   *
+﻿/* ********************************************************************************************
+   * convertStr (object, event)
    * ******************************************************************************************** */
 
 function convertStr(control, event) {
+	
+	var startString = "";
+	var workingString = "";
+	var finishString = "";
+	var finishCursorStart = 0;
+	var finishCursorEnd = 0;
+	var currentCursor = 0;	
 
     var key;
     if (window.event) {
@@ -75,13 +42,15 @@ function convertStr(control, event) {
         } else if (control.selectionStart || control.selectionStart == '0') {
             finishCursorStart = control.selectionStart;
             finishCursorEnd = control.selectionEnd;
-        }
-    
-        // --------------- break apart the greek characters in the starting value
-        breakApartGreekCharacters(control);
-        // --------------- combine the greek characters in the starting value
-        combineGreekCharacters(control);
+        }    
 
+        greek = new Array(); greek[0] = startString; greek[1] = workingString; greek[2] = finishString; greek[3] = finishCursorStart; greek[4] = finishCursorEnd; greek[5] = currentCursor;
+        // --------------- break apart the greek characters in the starting value
+        greek = breakApartGreekCharacters(greek,control); 
+        // --------------- combine the greek characters in the starting value
+        greek = combineGreekCharacters(greek,control);
+        startString = greek[0]; workingString = greek[1]; finishString = greek[2]; finishCursorStart = greek[3]; finishCursorEnd = greek[4]; currentCursor = greek[5];
+        
         // --------------- insert finishing value 
         control.value = finishString;
         //IE support
@@ -116,19 +85,8 @@ return;
 }
 
 
-
-
-
-
-
-
 /* ********************************************************************************************
    * convertCharToggle (object, boolean, event)
-   *
-   * 
-   * 
-   * 
-   * 
    * ******************************************************************************************** */
    
 function convertCharToggle(control, toggle, event) {
@@ -212,16 +170,10 @@ function convertCharToggle(control, toggle, event) {
             if ( key == 121 ) { insertAtCursor(control, 'ψ'); typeLetter = false; }    
             if ( key == 122 ) { insertAtCursor(control, 'ζ'); typeLetter = false; }        
             if ( key == 124 ) { insertAtCursor(control, 'ͺ'); typeLetter = false; }
-            // add ! for iota
-            // add & for \
             return typeLetter;
         }
     }
 }
-
-
-
-
 
 
 /* ********************************************************************************************
@@ -257,26 +209,23 @@ function insertAtCursor(myField, myValue) {
 }
 
 
-
-
-
 /* ********************************************************************************************
    * combineGreekCharacters (object)
-   *
-   *
-   * 
-   * 
-   * 
    * ******************************************************************************************** */
    
-function breakApartGreekCharacters(control) {
+function breakApartGreekCharacters(greek,control) {
+	
+    var startString = greek[0]; var workingString = greek[1]; var finishString = greek[2]; var finishCursorStart = greek[3]; var finishCursorEnd = greek[4]; var currentCursor = greek[5];	
 
     currentCursor = 0;
     startString = startString.replace(/`/,"`");
     while (startString != "") {
 
         workingString = "";
-        removeOne();
+        
+        greek[0] = startString; greek[1] = workingString; greek[2] = finishString; greek[3] = finishCursorStart; greek[4] = finishCursorEnd; greek[5] = currentCursor;        
+        greek = removeOne(greek);
+        startString = greek[0]; workingString = greek[1]; finishString = greek[2]; finishCursorStart = greek[3]; finishCursorEnd = greek[4]; currentCursor = greek[5];        
         
         if ( workingString == "ς" ) { workingString = "σ"; }
         if ( workingString == "ά" ) { workingString = "α´"; }
@@ -493,24 +442,19 @@ function breakApartGreekCharacters(control) {
 
         finishString = finishString + workingString;    
     }
-    return;
+    
+    greek[0] = startString; greek[1] = workingString; greek[2] = finishString; greek[3] = finishCursorStart; greek[4] = finishCursorEnd; greek[5] = currentCursor;    
+    return greek;
 }
-
-
-
-
 
 
 /* ********************************************************************************************
    * combineGreekCharacters (object)
-   *
-   *
-   * 
-   * 
-   * 
    * ******************************************************************************************** */
 
-function combineGreekCharacters(control) {
+function combineGreekCharacters(greek, control) {
+	
+    var startString = greek[0]; var workingString = greek[1]; var finishString = greek[2]; var finishCursorStart = greek[3]; var finishCursorEnd = greek[4]; var currentCursor = greek[5];	
 
     var COMBINABLE = "ΑαΗηΩωΕεΙιΟοΡρΥυ";
     var VOWELS = "ΑαΗηΩωΕεΙιΟοΥυ";
@@ -520,7 +464,7 @@ function combineGreekCharacters(control) {
     var SMOOTH_BREATHING = "ΑαΗηΩωΕεΙιΟου";
     var IOTA = "ΑαΗηΩω";
     var DIERESIS = "ΥυΙι";
-    var TERMINAL = "\n\r,;. :·;"
+    var TERMINAL = "\n\r,;. :·;"    	
     
     startString = finishString;
     finishString = "";
@@ -531,8 +475,11 @@ function combineGreekCharacters(control) {
 
         keepGoing = true;
         workingString = "";
-        removeOne();
-
+        
+        greek[0] = startString; greek[1] = workingString; greek[2] = finishString; greek[3] = finishCursorStart; greek[4] = finishCursorEnd; greek[5] = currentCursor;                
+        greek = removeOne(greek);
+        startString = greek[0]; workingString = greek[1]; finishString = greek[2]; finishCursorStart = greek[3]; finishCursorEnd = greek[4]; currentCursor = greek[5];
+        
         if (startString != "") {        
         // there's at least one more character in the string
         
@@ -553,31 +500,31 @@ function combineGreekCharacters(control) {
                                 if ( (DIERESIS.indexOf(workingString.charAt(0)) > -1) ) {
                                 // the current string starts with a letter that receives a dieresis
 	  
-	      if (workingString.indexOf('¨') > -1) {
+                                    if (workingString.indexOf('¨') > -1) {
                                     // the current string contains a dieresis
-	          keepGoing = false;
-	      } else {
+                                        keepGoing = false;
+	                                } else {
                                     // the current string does not contain a dieresis
-	          removeOne();
-	      }
-	  } else {
+	                                    greek = removeOne(greek);
+	                                }
+	                            } else {
                                     if (IOTA.indexOf(workingString.charAt(0)) > -1) {
                                     // the current string starts with a letter that receives an iota
 	      
-	          if (  (workingString.indexOf('ͺ') > -1) && (workingString.indexOf('᾿') == -1)  && (workingString.indexOf('῾') == -1)  ) {
-	          // the current string contains an iota and no breathing
-	              keepGoing = false;
-	          } else {
-	              removeOne();     
-	          }
-	      } else {
+                                        if (  (workingString.indexOf('ͺ') > -1) && (workingString.indexOf('᾿') == -1)  && (workingString.indexOf('῾') == -1)  ) {
+                         	            // the current string contains an iota and no breathing
+                                            keepGoing = false;
+	                                    } else {
+	                                        greek = removeOne(greek);     
+	                                    }
+	                                } else {
                                     // the current string starts with a letter that does not receive a dieresis or an iota		      
-                                        removeOne();	      
-	      }
-	  }
+                                        greek = removeOne(greek);	      
+	                                }
+	                            }
                             } else {
                             // the current string does NOT start with a capital letter
-                                removeOne();
+                                greek = removeOne(greek);
                             }
                         } else {
                             keepGoing = false;
@@ -595,39 +542,39 @@ function combineGreekCharacters(control) {
                                      if (  (DIERESIS.indexOf(workingString.charAt(0)) > -1)  ) {
                                      // the current string starts with a letter that receives a dieresis
 
-	           if (  (  (workingString.indexOf('᾿') > -1)  || (workingString.indexOf('῾') > -1) || (startString.charAt(1) == '᾿') || (startString.charAt(1) == '῾') )  && (workingString.indexOf('¨') == -1)  ) {
+                                         if (  (  (workingString.indexOf('᾿') > -1)  || (workingString.indexOf('῾') > -1) || (startString.charAt(1) == '᾿') || (startString.charAt(1) == '῾') )  && (workingString.indexOf('¨') == -1)  ) {
                                          // the current string contains a breathing mark (already or coming up next) and no dieresis
 
-	               if (  (SMOOTH_BREATHING.indexOf(workingString.charAt(0)) == -1) ) {
-	               // the current string starts with a letter that does not receive a smooth breathing		               
+                                             if (  (SMOOTH_BREATHING.indexOf(workingString.charAt(0)) == -1) ) {
+                                             // the current string starts with a letter that does not receive a smooth breathing		               
 	               
-	                   if (  ( (workingString.indexOf('῾') > -1) || (startString.charAt(1) == '῾') )  ) {
-    	                       removeOne();
-	                   } else {
-	                       keepGoing = false;	                                  
-	                   }
-	               } else {
-	                   removeOne();		               
-	               }
-	           } else {
-	               keepGoing = false;		           
-	           }       
-	       } else {
+                                                 if (  ( (workingString.indexOf('῾') > -1) || (startString.charAt(1) == '῾') )  ) {
+                                                     greek = removeOne(greek);
+                                                 } else {
+                                                     keepGoing = false;	                                  
+	                                             }
+                                             } else {
+                                                 greek = removeOne(greek);		               
+                                             }
+                                         } else {
+                                             keepGoing = false;		           
+                                         }       
+                                     } else {
                                         if (  (IOTA.indexOf(workingString.charAt(0)) > -1)  ) {
 
                                             if (      (((workingString.indexOf('᾿') > -1)  || (workingString.indexOf('῾') > -1) || (startString.charAt(1) == '᾿') || (startString.charAt(1) == '῾')))     || ((( (workingString.indexOf('᾿') == -1)  && (workingString.indexOf('῾') == -1) && (startString.charAt(1) == 'ͺ') && (workingString.indexOf('ͺ') == -1) && (  (startString.charAt(2) == '᾿') || (startString.charAt(2) == '῾') ))))    ) {
                                             // the current string contains a breathing mark (already or coming up next) 
-                                                removeOne();  	              
-	              } else {
-	                  keepGoing = false;		              
-	              }
-	          } else {
+                                                greek = removeOne(greek);  	              
+	                                        } else {
+	                                            keepGoing = false;		              
+	                                        }
+	                                    } else {
                                             keepGoing = false;
-	          }
-	       }
-	  } else {
-                                    removeOne();  
-	  }
+	                                    }
+	                                }
+	                            } else {
+                                    greek = removeOne(greek);  
+	                            }
                             } else {
                                 keepGoing = false;	                            
                             }
@@ -641,15 +588,15 @@ function combineGreekCharacters(control) {
                                 // the current string starts with a letter that receives a rough breathing (vowels and rho) and has no breathing mark and has no dieresis
                                     if ( startString.charAt(0) == "῾" ) {
                                     // the next character is (
-                                        removeOne();
-	      } else {
+                                        greek = removeOne(greek);
+                                    } else {
                                     // the next character is )
                                         if (  (SMOOTH_BREATHING.indexOf(workingString.charAt(0)) > -1)   ) {
                                         // the current string starts with a letter that receives a smooth breathing (same except for capital upsilon and capital rho)
-                                            removeOne();                                        
-	          } else {
+                                            greek = removeOne(greek);                                        
+                                        } else {
                                             keepGoing = false;
-	          }
+                                        }
                                     }
                                 } else { 
                                     keepGoing = false;                    
@@ -663,59 +610,62 @@ function combineGreekCharacters(control) {
                                     if ( startString.charAt(0) == "ͺ" ) {
                                     // the next character is |
 	      
-	          if ( (IOTA.indexOf(workingString.charAt(0)) > -1) && (workingString.indexOf('ͺ') == -1)  ) {
-	          // the current string starts with a letter that receives an iota and has no iota
+                                        if ( (IOTA.indexOf(workingString.charAt(0)) > -1) && (workingString.indexOf('ͺ') == -1)  ) {
+                                        // the current string starts with a letter that receives an iota and has no iota
 	          
                                             if (CAPITALS.indexOf(workingString.charAt(0)) > -1)  {
                                             // the current string starts with a capital letter
 	              
-	                  if (  ( (workingString.indexOf('´') == -1)  && (workingString.indexOf('`') == -1) && (workingString.indexOf('῀') == -1) )   ||  ( (workingString.indexOf('᾿') > -1)  || (workingString.indexOf('῾') > -1) || startString.charAt(1) == '᾿' || startString.charAt(1) == '῾' )     ) {    
-	                  // the current string either has no accent mark or it has a breathing mark (already or coming up)
-	                  
-	                      removeOne();
-	                  } else {
-	                  // the current string contains an accent mark without a breathing mark (already or coming up next)
-	                  
-	                      keepGoing = false;	                      
-	                  }
-	              } else {
-	              // the current string starts with a non-capital letter
-	                  removeOne();
-	              }   
-	          } else {
+                                                if (  ( (workingString.indexOf('´') == -1)  && (workingString.indexOf('`') == -1) && (workingString.indexOf('῀') == -1) )   ||  ( (workingString.indexOf('᾿') > -1)  || (workingString.indexOf('῾') > -1) || startString.charAt(1) == '᾿' || startString.charAt(1) == '῾' )     ) {    
+                                                // the current string either has no accent mark or it has a breathing mark (already or coming up)
+                                                    greek = removeOne(greek);
+                                                } else {
+                                                // the current string contains an accent mark without a breathing mark (already or coming up next)
+                                                    keepGoing = false;	                      
+                                                }
+	                                        } else {
+                                                // the current string starts with a non-capital letter
+                                                greek = removeOne(greek);
+                                            }   
+                                        } else {
                                             keepGoing = false;  
-	          }
-	      } else  {
+                                        }
+	                                } else  {
                                     // the next character is +
 	      
-	          if ( (DIERESIS.indexOf(workingString.charAt(0)) > -1) && (workingString.indexOf('¨') == -1) && (workingString.indexOf('᾿') == -1)  && (workingString.indexOf('῾') == -1)  ) {
-	          // the current strings starts with a letter that receives a dieresis and has no dieresis and has no breathing mark
+                                        if ( (DIERESIS.indexOf(workingString.charAt(0)) > -1) && (workingString.indexOf('¨') == -1) && (workingString.indexOf('᾿') == -1)  && (workingString.indexOf('῾') == -1)  ) {
+                                        // the current strings starts with a letter that receives a dieresis and has no dieresis and has no breathing mark
 	          
                                             if (CAPITALS.indexOf(workingString.charAt(0)) > -1) {
-	              // the current string starts with a capital letter
+                                            // the current string starts with a capital letter
 
-  	                  if (  (workingString.indexOf('´') == -1)  && (workingString.indexOf('`') == -1) && (workingString.indexOf('῀') == -1)  ) {
+                                                if (  (workingString.indexOf('´') == -1)  && (workingString.indexOf('`') == -1) && (workingString.indexOf('῀') == -1)  ) {
                                                 // the current string does not have any of the three accents (/, \, or =)
-	                      removeOne();
-	                  } else {
-	                      keepGoing = false;
-	                  }
-	              } else {
-	                  removeOne();
-	              }
-	          } else {
-	              keepGoing = false;
-	          }
-	      }
-	  } else {
-	      keepGoing = false;
-	  }
+                                                    greek = removeOne(greek);
+	                                            } else {
+	                                                keepGoing = false;
+	                                            }
+	                                        } else {
+	                                            greek = removeOne(greek);
+	                                        }
+	                                    } else {
+	                                        keepGoing = false;
+	                                    }
+	                                }
+	                            } else {
+	                                keepGoing = false;
+	                            }
                             }
                         }
-                    }     
-                } // keep checking the next characters
+                    }
+                    
+                    startString = greek[0]; workingString = greek[1]; finishString = greek[2]; finishCursorStart = greek[3]; finishCursorEnd = greek[4]; currentCursor = greek[5];
+                    
+                } // keep checking the next characters               
        
-                if (workingString.length > 1) { combineSingleCharacter(control); }
+                if (workingString.length > 1) { greek = combineSingleCharacter(greek, control); }
+                
+                startString = greek[0]; workingString = greek[1]; finishString = greek[2]; finishCursorStart = greek[3]; finishCursorEnd = greek[4]; currentCursor = greek[5];	                
 
             } else {
             // this character cannot be combined with other characters
@@ -730,15 +680,10 @@ function combineGreekCharacters(control) {
             
         finishString = finishString + workingString;
     }
-    return;
+    
+    greek[0] = startString; greek[1] = workingString; greek[2] = finishString; greek[3] = finishCursorStart; greek[4] = finishCursorEnd; greek[5] = currentCursor;
+    return greek;
 }
-
-
-
-
-
-
-
 
 
 /* ********************************************************************************************
@@ -750,7 +695,10 @@ function combineGreekCharacters(control) {
    * Unicode character represented by that string of characters.
    * ******************************************************************************************** */
 
-function combineSingleCharacter(control) {
+function combineSingleCharacter(greek, control) {
+	
+	var startString = greek[0]; var workingString = greek[1]; var finishString = greek[2]; var finishCursorStart = greek[3]; var finishCursorEnd = greek[4]; var currentCursor = greek[5];
+	
     if (  (currentCursor - (workingString.length - 1) <= finishCursorStart) && (currentCursor >= finishCursorStart) ) {
     // the finish cursor is located at the end of any of the characters in the working string
         finishCursorStart = currentCursor - (workingString.length - 1);
@@ -1140,29 +1088,26 @@ function combineSingleCharacter(control) {
             }
         }
     }
-    return;
+
+    greek[0] = startString; greek[1] = workingString; greek[2] = finishString; greek[3] = finishCursorStart; greek[4] = finishCursorEnd; greek[5] = currentCursor;
+    return greek;
+
 }
-
-
-
-
-
-
-
 
 
 /* ********************************************************************************************
    * removeOne ()
-   *
-   *
-   * 
-   * 
-   * 
    * ******************************************************************************************** */
 
-function removeOne() {
+function removeOne(greek) {
+	
+	var startString = greek[0]; var workingString = greek[1]; var finishString = greek[2]; var finishCursorStart = greek[3]; var finishCursorEnd = greek[4]; var currentCursor = greek[5];
+	
     workingString = workingString + startString.substr(0,1);
     startString = startString.substr(1, startString.length - 1);
     currentCursor = currentCursor + 1;
-return;
+
+    greek[0] = startString; greek[1] = workingString; greek[2] = finishString; greek[3] = finishCursorStart; greek[4] = finishCursorEnd; greek[5] = currentCursor;
+    return greek;
+    
 }
